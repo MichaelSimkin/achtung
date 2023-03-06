@@ -1,0 +1,40 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier", "import", "node", "promise", "regexp", "html"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:node/recommended",
+        "plugin:promise/recommended",
+        "plugin:regexp/recommended"
+    ],
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "settings": {
+        "node": { "tryExtensions": [".js", ".json", ".ts"] }
+    },
+    "ignorePatterns": ["dist", "webpack.*.js", "src/badCircleIndecies.ts"],
+    "rules": {
+        "no-unused-vars": "off", // Checked by typescript
+        "no-undef": "off", // Checked by typescript
+        "node/no-unsupported-features/es-syntax": ["error", { "ignores": ["modules"] }],
+        "node/no-unpublished-import": ["error", { "allowModules": ["three", "dat.gui"] }]
+    }
+}
