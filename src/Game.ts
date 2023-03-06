@@ -144,18 +144,8 @@ export class Game {
     }
 
     public initPlayers(playerConfigs: GamePlayerConfig[]) {
-        const { turnRadius } = config.defaultPlayerConfig;
         this.players = playerConfigs.map(
-            (playerConfig) =>
-                new Player({
-                    ...config.defaultPlayerConfig,
-                    angle: Math.random() * 2 * Math.PI,
-                    position: Point.getRandomPoint(
-                        this.map.topLeft.clone().addScalar(2 * turnRadius),
-                        this.map.size - 4 * turnRadius
-                    ),
-                    ...playerConfig,
-                })
+            (playerConfig) => new Player({ ...config.defaultPlayerConfig, ...playerConfig })
         );
     }
 

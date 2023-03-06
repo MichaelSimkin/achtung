@@ -31,6 +31,8 @@ const config = {
         turnDirection: "none" as turnDirection,
         gapWidth: 30,
         gapInterval: 500,
+        angle: 0,
+        position: new Point(0, 0),
     },
 };
 
