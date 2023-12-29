@@ -1,19 +1,15 @@
-import { turnDirection } from "./Player";
+import { turnDirection } from "./screens/Game/Player";
 import { Point } from "./utils/point";
 
-const canvas = document.createElement("canvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-document.body.appendChild(canvas);
-
 const config = {
-    canvas,
+    minGameWidth: 500,
+    minGameHeight: 400,
 
-    minGameWidth: 1000,
-    minGameHeight: 800,
+    canvasAnchorId: "achtung",
 
     backgroundColor: "rgba(0, 0, 0, 1)",
+
+    fpsCap: 240,
 
     defaultMapConfig: {
         topLeft: new Point(0, 0),

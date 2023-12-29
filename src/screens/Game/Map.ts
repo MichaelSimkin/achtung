@@ -1,4 +1,4 @@
-import { Point } from "./utils/point";
+import { Point } from "../../utils/point";
 
 export interface IMapConfig {
     topLeft: Point;

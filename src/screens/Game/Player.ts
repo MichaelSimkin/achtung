@@ -1,7 +1,7 @@
-import config from "./config";
+import config from "../../config";
+import { getCircleCircumferenceIndexes } from "../../utils/circle";
+import { Point } from "../../utils/point";
 import { Map } from "./Map";
-import { getCircleCircumferenceIndexes } from "./utils/circle";
-import { Point } from "./utils/point";
 
 export type turnDirection = "left" | "right" | "none";
 

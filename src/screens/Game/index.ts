@@ -1,18 +1,13 @@
-import config from "./config";
+import { canvasManager, frameManager } from "../../Core";
+import config from "../../config";
+import { Point } from "../../utils/point";
+import { SEC } from "../../utils/time";
+import { PartialProps } from "../../utils/types";
 import { IMapConfig, Map } from "./Map";
 import { IPlayerConfig, Player } from "./Player";
-import { Point } from "./utils/point";
-import { SEC } from "./utils/time";
-import { PartialProps } from "./utils/types";
 
 type GameMapConfig = PartialProps<IMapConfig, keyof typeof config.defaultMapConfig>;
 type GamePlayerConfig = PartialProps<IPlayerConfig, keyof typeof config.defaultPlayerConfig | "angle" | "position">;
-
-export interface IGameConfig {
-    ctx: CanvasRenderingContext2D;
-    playerConfigs: GamePlayerConfig[];
-    mapConfig: GameMapConfig;
-}
 
 export class Game {
     public ctx: CanvasRenderingContext2D;
@@ -23,20 +18,19 @@ export class Game {
 
     // TODO public scoreBoard: ScoreBoard;
 
-    private prevTime = 0;
-
     private paused = false;
 
     private roundPlaying = false;
 
-    constructor(gameConfig: IGameConfig) {
-        const { ctx, mapConfig, playerConfigs } = gameConfig;
+    constructor() {
+        this.ctx = canvasManager.ctx;
 
-        this.ctx = ctx;
+        this.initMap({ size: Math.min(this.ctx.canvas.clientHeight, this.ctx.canvas.clientWidth) * 0.9 });
 
-        this.initMap(mapConfig);
-
-        this.initPlayers(playerConfigs);
+        this.initPlayers([
+            { name: "Player 1", color: "rgba(255, 0, 0, 1)", keyRight: "ArrowRight", keyLeft: "ArrowLeft" },
+            { name: "Player 2", color: "rgba(0, 255, 0, 1)", keyRight: "KeyD", keyLeft: "KeyA" },
+        ]);
 
         this.initListeners();
     }
@@ -49,17 +43,8 @@ export class Game {
         });
     }
 
-    public start() {
-        const loop = (time: number) => {
-            const ms = time - this.prevTime;
-            this.prevTime = time;
-
-            if (!this.paused) this.draw(time, ms);
-
-            requestAnimationFrame(loop);
-        };
-
-        requestAnimationFrame(loop);
+    public render() {
+        if (!this.paused) this.draw(frameManager.currentTime, frameManager.deltaTime);
     }
 
     public resetMapLocation() {
