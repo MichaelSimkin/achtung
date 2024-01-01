@@ -1,4 +1,4 @@
-import { canvasManager, frameManager } from "../../Core";
+import Core from "../../Core";
 import config from "../../config";
 import { Point } from "../../utils/point";
 import { SEC } from "../../utils/time";
@@ -23,7 +23,7 @@ export class Game {
     private roundPlaying = false;
 
     constructor() {
-        this.ctx = canvasManager.ctx;
+        this.ctx = Core.ctx;
 
         this.initMap({ size: Math.min(this.ctx.canvas.clientHeight, this.ctx.canvas.clientWidth) * 0.9 });
 
@@ -44,7 +44,7 @@ export class Game {
     }
 
     public render() {
-        if (!this.paused) this.draw(frameManager.currentTime, frameManager.deltaTime);
+        if (!this.paused) this.draw(Core.time, Core.delta);
     }
 
     public resetMapLocation() {

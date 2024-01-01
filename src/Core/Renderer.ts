@@ -1,28 +1,15 @@
 import { Game } from "../screens/Game";
 import Menu from "../screens/Menu";
 
-interface Screens {
-    menu: Menu;
-    game: Game;
-}
-
 export default class Renderer {
-    private currentScreen: keyof Screens;
-    private screens: Screens;
+    private screens = { menu: new Menu(), game: new Game() };
+    public screen: keyof typeof this.screens;
 
     constructor() {
-        this.currentScreen = "game";
-        this.screens = {
-            menu: new Menu(),
-            game: new Game(),
-        };
+        this.screen = "game";
     }
 
     render() {
-        this.screens[this.currentScreen].render();
-    }
-
-    get screen() {
-        return this.currentScreen;
+        this.screens[this.screen].render();
     }
 }

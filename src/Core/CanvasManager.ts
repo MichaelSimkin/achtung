@@ -1,7 +1,7 @@
 import { createCanvas, resetResolution, resizeCanvas } from "../utils/canvas";
 
 export class CanvasManager {
-    private canvas: HTMLCanvasElement;
+    public readonly canvas: HTMLCanvasElement;
     public readonly ctx: CanvasRenderingContext2D;
 
     constructor(anchorId: string) {

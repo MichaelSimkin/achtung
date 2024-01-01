@@ -1,10 +1,10 @@
 import { SEC } from "../utils/time";
 
 export default class FrameManager {
-    private fps: number;
-    private time: number;
-    private lastFrameTime: number;
-    private delta: number;
+    public fps: number;
+    public time: number;
+    public lastFrameTime: number;
+    public delta: number;
 
     constructor(private fpsCap: number) {
         this.fps = 0;
@@ -23,17 +23,5 @@ export default class FrameManager {
         }
 
         return shouldRender;
-    }
-
-    get frameRate() {
-        return this.fps;
-    }
-
-    get currentTime() {
-        return this.time;
-    }
-
-    get deltaTime() {
-        return this.delta;
     }
 }

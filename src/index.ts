@@ -1,1 +1,3 @@
-import "./Core";
+import Core from "./Core";
+
+Core.start();
