@@ -1,12 +1,5 @@
-import { Point } from "../../utils/point";
-
-export interface IMapConfig {
-    topLeft: Point;
-    size: number;
-    borderWidth: number;
-    borderColor: string;
-    backgroundColor: string;
-}
+import { Point } from "../../Components/Point";
+import { IMapConfig } from "../../interface/Map";
 
 export class Map {
     public topLeft: Point;

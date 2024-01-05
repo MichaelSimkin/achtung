@@ -1,7 +1,8 @@
 import Core from "../../Core";
 import config from "../../config";
+import { Screen } from "../../interface/Screen";
 
-export default class Menu {
+export default class Menu implements Screen {
     constructor() {
         // TODO
     }
@@ -21,5 +22,23 @@ export default class Menu {
 
         // Print Delta below Time
         ctx.fillText(`Delta: ${Core.delta}`, 10, 90);
+
+        // Start button in center
+        const message = "Press anywhere to start";
+        ctx.fillText(message, ctx.canvas.width / 2 - ctx.measureText(message).width / 2, ctx.canvas.height / 2);
+    }
+
+    public init() {
+        Core.canvas.addEventListener("click", this.startGame);
+    }
+
+    public destroy() {
+        Core.canvas.removeEventListener("click", this.startGame);
+    }
+
+    private startGame() {
+        Core.addPlayer({ name: "Player 2", color: "blue", keyLeft: "ArrowLeft", keyRight: "ArrowRight" });
+        Core.setScreen("game");
+        // TODO
     }
 }

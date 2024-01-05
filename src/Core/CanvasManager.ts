@@ -1,3 +1,4 @@
+import config from "../config";
 import { createCanvas, resetResolution, resizeCanvas } from "../utils/canvas";
 
 export class CanvasManager {
@@ -20,5 +21,10 @@ export class CanvasManager {
         resizeCanvas(this.canvas);
         resetResolution(this.canvas);
         window.addEventListener("resize", () => resetResolution(this.canvas));
+    }
+
+    public clearCanvas(color = config.backgroundColor) {
+        this.ctx.fillStyle = color;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }

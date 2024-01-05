@@ -1,26 +1,8 @@
-import config from "../../config";
-import { getCircleCircumferenceIndexes } from "../../utils/circle";
-import { Point } from "../../utils/point";
-import { Map } from "./Map";
-
-export type turnDirection = "left" | "right" | "none";
-
-export interface IPlayerConfig {
-    name: string;
-    color: string; // rgba
-    headColor: string; // rgba
-    keyRight: string; // key code
-    keyLeft: string; // key code
-
-    position: Point;
-    width: number; // pixels
-    speed: number; // pixels per millisecond
-    angle: number; // radians
-    turnRadius: number; // pixels
-    turnDirection: turnDirection;
-    gapWidth: number; // pixels
-    gapInterval: number; // pixels
-}
+import config from "../config";
+import { IPlayerConfig, turnDirection } from "../interface/Player";
+import { Map } from "../screens/Game/Map";
+import { getCircleCircumferenceIndexes } from "../utils/circle";
+import { Point } from "./Point";
 
 export class Player {
     public name: string;
@@ -50,19 +32,14 @@ export class Player {
 
     constructor(config: IPlayerConfig) {
         Object.assign(this, config);
-        this.initEventListeners();
     }
 
-    public destroy() {
-        this.stopEventListeners();
-    }
-
-    private initEventListeners() {
+    public init() {
         document.addEventListener("keydown", this.handleKeyDown);
         document.addEventListener("keyup", this.handleKeyUp);
     }
 
-    private stopEventListeners() {
+    public destroy() {
         document.removeEventListener("keydown", this.handleKeyDown);
         document.removeEventListener("keyup", this.handleKeyUp);
     }
@@ -89,6 +66,9 @@ export class Player {
         }
     };
 
+    // TODO: bad naming, this also draws the path, need to create one function that checks collision and draws path.
+    // How to draw: save ImageData of current drawing area (circle around player with radius of ms * speed),
+    // draw path, get new ImageData, compare the two, if any non-background color has changed, collision
     public update(ctx: CanvasRenderingContext2D, ms: number) {
         if (!this.alive) return;
 
@@ -211,5 +191,13 @@ export class Player {
         const sizeBounds = map.size - 2 * offset;
         const isInBounds = this.position.isInSquare(topLeftBounds, sizeBounds);
         this.alive &&= !this.drawTrail || isInBounds;
+    }
+
+    public randomizeLocationOnMap(map: Map) {
+        this.angle = Math.random() * 2 * Math.PI;
+        this.position = Point.getRandomPoint(
+            map.topLeft.clone().addScalar(2 * this.turnRadius),
+            map.size - 4 * this.turnRadius
+        );
     }
 }

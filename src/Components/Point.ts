@@ -1,10 +1,8 @@
-type IPointParams = [number, number] | [[number, number]] | [{ x: number; y: number }];
-
 export class Point {
     public x: number;
     public y: number;
 
-    constructor(...args: IPointParams) {
+    constructor(...args: [number, number] | [[number, number]] | [{ x: number; y: number }]) {
         if (args.length === 2) [this.x, this.y] = args;
         else if (Array.isArray(args[0])) [[this.x, this.y]] = args;
         else [{ x: this.x, y: this.y }] = args;

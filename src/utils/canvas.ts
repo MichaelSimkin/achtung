@@ -16,8 +16,3 @@ export const resetResolution = (canvas: HTMLCanvasElement) => {
     canvas.width = Math.max(canvas.clientWidth, config.minGameWidth);
     canvas.height = Math.max(canvas.clientHeight, config.minGameHeight);
 };
-
-export const clearCanvas = (ctx: CanvasRenderingContext2D) => {
-    ctx.fillStyle = config.backgroundColor;
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-};

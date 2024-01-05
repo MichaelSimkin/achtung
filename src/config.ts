@@ -1,5 +1,5 @@
-import { turnDirection } from "./screens/Game/Player";
-import { Point } from "./utils/point";
+import { Point } from "./Components/Point";
+import { turnDirection } from "./interface/Player";
 
 const config = {
     minGameWidth: 500,
@@ -10,6 +10,8 @@ const config = {
     backgroundColor: "rgba(0, 0, 0, 1)",
 
     fpsCap: 240,
+
+    localStorageSettingsKey: "achtung-settings",
 
     defaultMapConfig: {
         topLeft: new Point(0, 0),
@@ -29,6 +31,7 @@ const config = {
         gapInterval: 500,
         angle: 0,
         position: new Point(0, 0),
+        alive: true,
     },
 };
 
